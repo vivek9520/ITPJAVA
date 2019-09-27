@@ -16,6 +16,8 @@
       <a href="#products" class="w3-bar-item w3-button">Products</a>
       <a href="#about" class="w3-bar-item w3-button">About</a>
       <a href="#slideshow" class="w3-bar-item w3-button">Contact</a>
+            <a href="userlogin.jsp" class="w3-bar-item w3-button">Login</a>
+      
       
     </div>
   </div>

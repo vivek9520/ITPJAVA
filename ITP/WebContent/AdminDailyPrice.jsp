@@ -23,6 +23,28 @@
 
     </head>
     <body>
+    
+    <%
+		String id = request.getParameter("username");
+		String driverName = "com.mysql.jdbc.Driver";
+		String connectionUrl = "jdbc:mysql://localhost:3306/";
+		String dbName = "itp";
+		String username = "root";
+		String password = "root1234";
+
+	try {
+		Class.forName(driverName);
+	} catch (ClassNotFoundException e) {
+	e.printStackTrace();
+	}
+
+		Connection connection = null;
+		Statement statement = null;
+		ResultSet resultSet = null;
+		ResultSet resultSetmarket = null;
+		Statement statementmarket = null;
+%>
+    
     <div class="w3-top">
   <div class="w3-bar w3-black w3-wide w3-padding w3-card">
     <a href="#home" class="w3-bar-item w3-button"><b>AG</b> Agro</a>
@@ -69,12 +91,62 @@
 
 	Enter the market's name:
 	<br>
-	  <input  class="form-control" type="text" name="DailyMarketName" placeholder="eg:Wellawatte market" required><br>
+	 <select class="form-control" name ="DailyMarketName">
+	 
+	 	<option value="-1">Select Market</option>
+	 	
+	 	<%
+			try{ 
+				connection = DriverManager.getConnection(connectionUrl+dbName, username, password);
+				statement=connection.createStatement();
+				String sql ="SELECT * FROM market";
+
+				resultSet = statement.executeQuery(sql);
+		
+ 
+				while(resultSet.next()){
+		%>
+			<option><%=resultSet.getString(3) %></option>
+    	<% 
+		}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		%>
+	
+	 </select>
+	
 	<br>
 	
+
 	Enter the name of the product:
 	<br>
-	 <input  class="form-control" type="text" name="DailyProductName" placeholder="eg:Mango"required> <br>
+	 <select class="form-control" name ="DailyProductName">
+	 
+	 	<option value="-1">Select Product</option>
+	 	
+	 	<%
+			try{ 
+				connection = DriverManager.getConnection(connectionUrl+dbName, username, password);
+				statement=connection.createStatement();
+				String sql ="SELECT * FROM product";
+
+				resultSet = statement.executeQuery(sql);
+		
+ 
+				while(resultSet.next()){
+		%>
+			<option><%=resultSet.getString(2) %></option>
+    	<% 
+		}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		%>
+	
+	 </select>
 	<br>
 	
 	Enter the today's date:<br>
@@ -113,32 +185,15 @@
 
 
 
-<%
-String id = request.getParameter("username");
-String driverName = "com.mysql.jdbc.Driver";
-String connectionUrl = "jdbc:mysql://localhost:3306/";
-String dbName = "itp";
-String username = "root";
-String password = "root1234";
 
-try {
-Class.forName(driverName);
-} catch (ClassNotFoundException e) {
-e.printStackTrace();
-}
-
-Connection connection = null;
-Statement statement = null;
-ResultSet resultSet = null;
-%>
 
 <%
-try{ 
-connection = DriverManager.getConnection(connectionUrl+dbName, username, password);
-statement=connection.createStatement();
-String sql ="SELECT * FROM DailyPrice";
+	try{ 
+		connection = DriverManager.getConnection(connectionUrl+dbName, username, password);
+		statement=connection.createStatement();
+		String sql ="SELECT * FROM DailyPrice";
 
-resultSet = statement.executeQuery(sql);
+		resultSet = statement.executeQuery(sql);
 %>
 
     
@@ -159,8 +214,8 @@ resultSet = statement.executeQuery(sql);
         <th>Date</th>
         <th>Buying Price</th>
         <th>Selling Price</th>
-        <th> Activity 1 </th>
-        <th> Activity 2  </th>
+        <th> UPDATE </th>
+        <th> DELETE  </th>
       </tr>
     </thead>
     

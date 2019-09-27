@@ -43,6 +43,8 @@ public class AddDailyPriceServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 		
+		PrintWriter out = response.getWriter();
+		
 
 		 String DailyMarketName = request.getParameter("DailyMarketName");
 		 String DailyProductName = request.getParameter("DailyProductName");
@@ -73,12 +75,20 @@ public class AddDailyPriceServlet extends HttpServlet {
 		
 		 if(DailyPrice.equals("SUCCESS"))   //On success, you can display a message to user on Home page
 		 {
-			 
+			
+			out.println("<script src='https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.4/sweetalert2.all.js'</script>");
+			out.println("<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'</script>");
+			out.println("<script>");
+			out.println("$(document).ready(funcation(){");
+			out.println("swal('Welcome','successful !','success');");
+			out.println("});");
+			out.println("</script>");
+			
 		 request.getRequestDispatcher("/AdminDailyPrice.jsp").forward(request, response);
 		 }
 		 else   //On Failure, display a meaningful message to the User.
 		 {
-			 PrintWriter out = response.getWriter();
+			 
 			 out.print("Error");
 		//request.setAttribute("errMessage", AddedE);
 		//request.getRequestDispatcher("/empl.jsp").forward(request, response);

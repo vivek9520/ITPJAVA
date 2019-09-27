@@ -44,6 +44,7 @@ public class AddDailyPriceService {
 	 int i= preparedStatement.executeUpdate();
 	 
 	 if (i!=0)  //Just to ensure data has been inserted into the database
+		 
 	 return "SUCCESS"; 
 	 }
 	 catch(SQLException e)
